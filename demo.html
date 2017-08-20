@@ -35,9 +35,15 @@
             align-items: center;
             justify-content: center;
         }
-
         .active{
             background: red;
+        }
+        .previousPage{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background: green
         }
     </style>
 </head>
@@ -54,7 +60,8 @@
     url="{{url}}"
     method="POST"
     params="{{params}}"
-    current-page-key="currentPage"                  
+    current-page-key="currentPage"  
+    previous-page-class="previousPage"                
     >
     <!--
         max-page 你的最大页数

@@ -11,14 +11,14 @@ angular.module('pageControl',[])
     return {
         restrict:'E',
         template:`
-            <div ng-class="boxClass">
-                <div ng-class="itemClass" ng-click="goToPrePage()" ng-show="currentPage>1">上一页</div>
+            <div ng-class="boxClass" >
+                <div ng-class="previousPageClass" ng-click="goToPrePage()" ng-show="currentPage>1">上一页</div>
                 <div ng-class="[itemClass,firstButtonClass]" ng-click="go(1)" ng-show="firstPageButton||maxPage>1">1</div>
-                <div ng-class="itemClass" ng-show="previous">...</div>
+                <div ng-class="previousOmitClass" ng-show="previous">...</div>
                 <div ng-class="[itemClass,{{'active'+$index}}]" ng-click="go()" ng-repeat="item in array track by $index">{{item}}</div>
-                <div ng-class="itemClass" ng-show="next">...</div>
+                <div ng-class="nextOmitClass" ng-show="next">...</div>
                 <div ng-class="[itemClass,lastButtonClass]" ng-click="go(maxPage)" ng-show="maxPage>1" >{{maxPage}}</div>
-                <div ng-class="itemClass" ng-click="goToNextPage()" ng-show="currentPage!=maxPage">下一页</div>
+                <div ng-class="nextPageClass" ng-click="goToNextPage()" ng-show="currentPage!=maxPage&&maxPage">下一页</div>
             </div>            
         `,
         scope:{
@@ -31,7 +31,11 @@ angular.module('pageControl',[])
             data:'=',               //请求到的数据的存放容器    (用于接收请求到的数据)
             method:'@',             //请求方式                 (用于向服务器发送ajax请求)
             params:'@',             //请求参数                 (用于向服务器发送ajax请求)
-            currentPageKey:'@'      //当前页的参数名           (用于向服务器发送ajax请求)
+            currentPageKey:'@',     //当前页的参数名           (用于向服务器发送ajax请求)
+            previousPageClass:'@',
+            nextPageClass:'@',
+            previousOmitClass:'@',
+            nextOmitClass:'@'
         },
         controller:function($scope,$http){
 
@@ -196,7 +200,6 @@ angular.module('pageControl',[])
             }
         },
         link:function($scope){
-            $scope.showNumberButton = $scope.showNumberButton ? $scope.showNumberButton : 6;
             component.maxPage = $scope.maxPage;
             component.lastPage = 1;
             if(component.isFirstLoad){
@@ -206,6 +209,12 @@ angular.module('pageControl',[])
             $scope.$watch('maxPage',function(newVal){
                 $scope.initArray()
             },true)
+            //初始化 显示数字按钮的数量和 非数字按钮的样式
+            $scope.showNumberButton = $scope.showNumberButton ? $scope.showNumberButton : 6;            
+            $scope.previousPageClass = $scope.previousPageClass ? $scope.previousPageClass : $scope.itemClass;
+            $scope.nextPageClass = $scope.nextPageClass ? $scope.nextPageClass : $scope.itemClass;
+            $scope.previousOmitClass = $scope.previousOmitClass ? $scope.previousOmitClass : $scope.itemClass;
+            $scope.nextOmitClass = $scope.nextOmitClass ? $scope.nextOmitClass : $scope.itemClass; 
         }
     }
 })
