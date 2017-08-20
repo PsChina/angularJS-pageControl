@@ -1,10 +1,10 @@
 /**
  * 基于angularJS的一个分页器@angular1.x
  * State-based pageControl for AngularJS 1.x
- * @version 0.1 
+ * @version 0.2 
  * https://github.com/PsChina/angular-pageControl
  * @license Pan·ShanShan
- * 2017-08-18
+ * 2017-08-20
  */
 angular.module('pageControl',[])
 .directive('pageCtrl',function(component){
@@ -32,10 +32,10 @@ angular.module('pageControl',[])
             method:'@',             //请求方式                 (用于向服务器发送ajax请求)
             params:'@',             //请求参数                 (用于向服务器发送ajax请求)
             currentPageKey:'@',     //当前页的参数名           (用于向服务器发送ajax请求)
-            previousPageClass:'@',
-            nextPageClass:'@',
-            previousOmitClass:'@',
-            nextOmitClass:'@'
+            previousPageClass:'@',  //上一页类名
+            nextPageClass:'@',      //下一页类名
+            previousOmitClass:'@',  //上一页省略号类名
+            nextOmitClass:'@',      //下一页省略号类名
         },
         controller:function($scope,$http){
 
