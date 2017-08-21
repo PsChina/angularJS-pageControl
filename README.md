@@ -4,7 +4,6 @@ If you have any advise please send e-mail to 331988750@qq.com.
 
 # Get Start
 ## git
-Open git and run
 ````
 git clone git@github.com:PsChina/angularJS-pageControl.git
 ````
