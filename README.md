@@ -9,7 +9,7 @@ git clone git@github.com:PsChina/angularJS-pageControl.git
 ````
 ## npm
 ````
-npm install angular-pagecontrol--save-dev
+npm install angular-pagecontrol
 ````
 
 # Usage
