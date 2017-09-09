@@ -4,16 +4,16 @@ If you have any advise please send e-mail to 331988750@qq.com.
 
 # Get Start
 ## git
-````
+```
 git clone git@github.com:PsChina/angularJS-pageControl.git
-````
+```
 ## npm
-````
+```
 npm install angular-pagecontrol
-````
+```
 
 # Usage
-````
+```html
 1.import pageControl module.
 <script src="./angular-pagectrl.js"></script>
 
@@ -54,6 +54,7 @@ angular.module('app',['pageControl'])
         nextOmitClass           @   下一页省略号类名        
     -->   
     css:
+<style>
         html,body {
             margin: 0;
             padding: 0;
@@ -123,8 +124,10 @@ angular.module('app',['pageControl'])
             height: 50px;
             line-height: 80px;
             text-align: center
-        }    
+        }  
+</style>  
 /**
+<script>
 controller('main',function($scope,$http){
 
   $scope.url = 'http://localhost:8030/history' //获取每页数据的url
@@ -149,7 +152,8 @@ controller('main',function($scope,$http){
   })
 
 })
+</script>
  **/
-````
+```
 
 欢迎试用!
