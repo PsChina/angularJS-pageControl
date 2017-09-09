@@ -3,9 +3,13 @@ The page control for angularJS.
 If you have any advise please send e-mail to 331988750@qq.com.
 
 # Get Start
-Open git and run
+## git
 ````
 git clone git@github.com:PsChina/angularJS-pageControl.git
+````
+## npm
+````
+npm install angular-pagecontrol
 ````
 
 # Usage
