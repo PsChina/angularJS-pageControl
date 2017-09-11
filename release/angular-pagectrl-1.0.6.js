@@ -1,24 +1,24 @@
 /**
  * 基于angularJS的一个分页器@angular1.x
  * State-based pageControl for AngularJS 1.x
- * @version 1.0.7
+ * @version 1.0.6
  * https://github.com/PsChina/angular-pageControl
  * @license Pan·ShanShan
- * 2017-09-11
+ * 2017-08-20
  */
 angular.module('pageControl',[])
 .directive('pageCtrl',function(component){
     return {
         restrict:'E',
         template:`
-            <div ng-class="boxClass" ng-show="maxPage">
-                <div ng-class="previousPageClass" ng-click="goToPrePage()" ng-show="currentPage>1&&maxPage>0">上一页</div>
-                <div ng-class="[itemClass,firstButtonClass]" ng-click="go(1)" ng-show="firstPageButton||maxPage>=1">1</div>
+            <div ng-class="boxClass" >
+                <div ng-class="previousPageClass" ng-click="goToPrePage()" ng-show="currentPage>1">上一页</div>
+                <div ng-class="[itemClass,firstButtonClass]" ng-click="go(1)" ng-show="firstPageButton||maxPage>1">1</div>
                 <div ng-class="previousOmitClass" ng-show="previous">...</div>
                 <div ng-class="[itemClass,{{'active'+$index}}]" ng-click="go()" ng-repeat="item in array track by $index">{{item}}</div>
                 <div ng-class="nextOmitClass" ng-show="next">...</div>
                 <div ng-class="[itemClass,lastButtonClass]" ng-click="go(maxPage)" ng-show="maxPage>1" >{{maxPage}}</div>
-                <div ng-class="nextPageClass" ng-click="goToNextPage()" ng-show="currentPage!=maxPage&&maxPage>0">下一页</div>
+                <div ng-class="nextPageClass" ng-click="goToNextPage()" ng-show="currentPage!=maxPage&&maxPage">下一页</div>
             </div>            
         `,
         scope:{
@@ -36,7 +36,6 @@ angular.module('pageControl',[])
             nextPageClass:'@',      //下一页类名
             previousOmitClass:'@',  //上一页省略号类名
             nextOmitClass:'@',      //下一页省略号类名
-            currentPage:'='         //当前页
         },
         controller:function($scope,$http){
 
@@ -66,6 +65,7 @@ angular.module('pageControl',[])
 
             //加载首屏数据
             $scope.initArray()
+            $scope.currentPage =1;
             if(component.maxPage>0){
                 $scope.firstPageButton = true;
             }
@@ -75,25 +75,15 @@ angular.module('pageControl',[])
                 data:$scope.params ? $scope.params : ''
             }).then(function(result){
                 $scope.data = result.data;
-                
             },function(error){
                 throw new Error(error.message);
             })
-            //加载首屏选中样式
-           if( $scope.currentPage == 1){
-                $scope.firstButtonClass = $scope.activeClass;
-           }else if( $scope.currentPage == $scope.maxPage ){
-                $scope.lastButtonClass = $scope.activeClass;
-           }else {
-               var ind = $scope.currentPage - 2;
-               $scope['active'+ind] = $scope.activeClass;
-           }
             
             //跳转到选中页并请求数据
             $scope.go = function(){
             $scope.currentPage = arguments[0] ? arguments[0] : this.item; 
 
-            if(component.lastPage!=$scope.currentPage){ //如果当前页不是最新的那么不请求数据
+            if(component.lastPage!=$scope.currentPage){ //如何当前页不是最新的那么不请求数据
                 var params = JSON.parse($scope.params);
                 params[$scope.currentPageKey] = $scope.currentPage;  
                 $http({
@@ -211,15 +201,13 @@ angular.module('pageControl',[])
         },
         link:function($scope){
             component.maxPage = $scope.maxPage;
-            component.lastPage = $scope.currentPage;
+            component.lastPage = 1;
             if(component.isFirstLoad){
+                $scope.firstButtonClass = $scope.activeClass;
                 component.isFirstLoad = false;
             }
             $scope.$watch('maxPage',function(newVal){
                 $scope.initArray()
-                if($scope.currentPage == newVal){
-                    $scope.lastButtonClass = $scope.activeClass;
-                }
             },true)
             //初始化 显示数字按钮的数量和 非数字按钮的样式
             $scope.showNumberButton = $scope.showNumberButton ? $scope.showNumberButton : 6;            
