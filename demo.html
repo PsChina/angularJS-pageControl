@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html ng-app="app">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        html,body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
         }
-        .item{
+
+        .item {
             margin: 2px;
-            border:1px solid black;
+            border: 1px solid black;
             width: 50px;
             height: 50px;
             float: left;
             line-height: 50px;
             text-align: center;
         }
-        .pageControl{
+
+        .pageControl {
             position: fixed;
             left: 0;
             bottom: 0;
         }
-        
-        .pageContent{
+
+        .pageContent {
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -35,12 +39,14 @@
             align-items: center;
             justify-content: center;
         }
-        .active{
+
+        .active {
             background: red;
         }
-        .previousPage{
+
+        .previousPage {
             margin: 2px;
-            border:1px solid black;            
+            border: 1px solid black;
             width: 50px;
             height: 50px;
             text-align: center;
@@ -50,9 +56,10 @@
             border-top-left-radius: 25px;
             border-bottom-left-radius: 25px;
         }
-        .nextPage{
+
+        .nextPage {
             margin: 2px;
-            border:1px solid black;            
+            border: 1px solid black;
             width: 50px;
             height: 50px;
             text-align: center;
@@ -60,16 +67,18 @@
             background: green;
             float: left;
             border-top-right-radius: 25px;
-            border-bottom-right-radius: 25px;            
+            border-bottom-right-radius: 25px;
         }
-        .previousOmit{
+
+        .previousOmit {
             float: left;
             width: 50px;
             height: 50px;
             line-height: 80px;
             text-align: center
         }
-        .nextOmit{
+
+        .nextOmit {
             float: left;
             width: 50px;
             height: 50px;
@@ -78,27 +87,27 @@
         }
     </style>
 </head>
+
 <body ng-controller="main">
     <div class="content">{{data}}</div>
 
     <page-ctrl 
-    max-page="{{maxPage}}"              
+    max-page="{{maxPage}}" 
     box-class="pageControl" 
     item-class="item" 
     active-class="active" 
-    data="data"
+    data="data" 
     show-number-button="6"
-    url="{{url}}"
-    method="POST"
-    params="{{params}}"
-    current-page-key="currentPage"
-    current-page='currentPage'  
+    url="{{url}}" 
+    method="POST" 
+    params="{{params}}" 
+    current-page-key="currentPage" 
+    current-page='currentPage' 
     previous-page-class="previousPage"
     next-page-class="nextPage" 
-    previous-omit-class="previousOmit"
-    next-omit-class="nextOmit" 
-    >
-    <!--
+    previous-omit-class="previousOmit" 
+    next-omit-class="nextOmit">
+        <!--
         max-page                @   你的最大页数
         box-class               @   你的分页器样式
         item-class              @   分页器按钮样式
@@ -118,33 +127,35 @@
     </page-ctrl>
 
 </body>
-    <script src="./js/angular.min.js"></script>
-    <script src="./pageControl/angular-pagectrl.js"></script>
+<script src="./js/angular.min.js"></script>
+<script src="./pageControl/angular-pagectrl.js"></script>
+
 </html>
 <script>
-    var app = angular.module('app',['pageControl'])
-                     .controller('main',function($scope,$http){
-                        $scope.currentPage = 2 ;
-                        $scope.url = 'http://localhost:8030/history' //获取每页数据的url
-                        $scope.params = {                            //请求参数
-                            userId:001,
-                            showPage:2,
-                            currentPage:$scope.currentPage
-                        }
-                    
-                        $http({
-                            url:'http://localhost:8030/maxPage',  //获取页数的url
-                            method:'POST',
-                            data:{
-                                userId:001,
-                                showPage:2
-                            }
-                        }).then(function(result){
-                            $scope.maxPage = result.data.maxPage  //获取最大页数
-                        },function(error){
-                            console.log(error.message);
-                            $scope.maxPage = 10;
-                        })
-                        
-                     })
+    var app = angular.module('app', ['pageControl'])
+        .controller('main', function ($scope, $http) {
+            $scope.currentPage = 2;
+            $scope.url = 'http://localhost:8030/history' //获取每页数据的url
+            $scope.params = {                            //请求参数
+                userId: 001,
+                showPage: 2,
+                currentPage: $scope.currentPage
+            }
+
+            $http({
+                url: 'http://localhost:8030/maxPage',  //获取页数的url
+                method: 'POST',
+                data: {
+                    userId: 001,
+                    showPage: 2
+                }
+            }).then(function (result) {
+                $scope.maxPage = result.data.maxPage  //获取最大页数
+            }, function (error) {
+                console.log(error.message);
+                $scope.maxPage = 10;
+            })
+
+        })
+
 </script>
