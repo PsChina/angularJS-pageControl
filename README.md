@@ -131,12 +131,12 @@ angular.module('app',['pageControl'])
 /**
 <script>
 controller('main',function($scope,$http){
-
+  $scope.currentPage=1; //设置当前页
   $scope.url = 'http://localhost:8030/history' //获取每页数据的url
   $scope.params = {                            //请求参数
       userId:001,
-      showPage:2,
-      currentPage:1
+      showPage:2,//设置每页显示多少个数据
+      currentPage:$scope.currentPage
   }
 
   $http({
@@ -144,7 +144,7 @@ controller('main',function($scope,$http){
       method:'POST',
       data:{
           userId:001,
-          showPage:2
+          showPage:2//每页显示多少个数据
       }
   }).then(function(result){
       $scope.maxPage = result.data.maxPage;   //获取最大页数
