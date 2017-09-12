@@ -32,6 +32,7 @@ angular.module('app',['pageControl'])
     method="POST"
     params="{{params}}"
     current-page-key="currentPage"
+    current-page='currentPage' 
     previous-page-class="previousPage"
     next-page-class="nextPage" 
     previous-omit-class="previousOmit"
@@ -47,6 +48,7 @@ angular.module('app',['pageControl'])
         url                     @   获取每页数据的url
         params                  @   请求每页数据的具体参数 页面写第一页即可
         current-page-key        @   告诉组建如何求改你的cureentPage的value 的key 是哪个  比如要请求第n也的数据的key 是{currentPage:n} 可以设置为 current-page-key = "currentPage"
+        current-page            =   双向绑定当前页 
         method默认参数为POST     @   可以不传递参数 
         previousPageClass       @   上一页类名
         nextPageClass           @   下一页类名
